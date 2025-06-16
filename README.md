@@ -49,9 +49,9 @@ To get the India Carbon Market Simulator running locally, follow these steps:
 
 ## Core Simulation Logic
 
-The heart of the ICMS lies in its simulation algorithms, primarily implemented in `src/utils/carbonSimulator.ts` and `src/utils/timeSeriesSimulator.ts`.
+The heart of the ICMS lies in its simulation algorithms, primarily implemented in `src/utils/carbonSimulator.ts`.
 
-### 1. Price Simulator (`src/components/PriceSimulator.tsx` using `src/utils/carbonSimulator.ts`)
+### 1. Price Simulator
 
 The Price Simulator allows users to set a specific carbon price and observe its immediate impact on various industrial sectors and the overall market.
 
@@ -75,7 +75,7 @@ The Price Simulator allows users to set a specific carbon price and observe its 
 4.  **Aggregate Results**: After processing all sectors, the method sums up the `total_emissions_reduced` and `total_ccc_supply` across all sectors.
 5.  **Output**: Returns a `SimulationResults` object containing the `carbon_price`, an array of `SectorResult` objects (one for each sector), the `total_emissions_reduced`, and the `total_ccc_supply`. The `equilibrium_found` flag is set to `true` if `total_ccc_supply` is close to zero (within `EPSILON`).
 
-### 2. Equilibrium Price Finder (`src/components/EquilibriumFinder.tsx` using `src/utils/carbonSimulator.ts`)
+### 2. Equilibrium Price Finder
 
 The Equilibrium Finder aims to determine the carbon price at which the total supply of carbon credits equals the total demand (i.e., market clears).
 
@@ -100,7 +100,64 @@ The Equilibrium Finder aims to determine the carbon price at which the total sup
 3.  **Tracking (for `findEquilibriumWithTracking`)**: This specific method also records the `iteration`, `price`, and `balance` at each step of the bisection method. This data is used to visualize the convergence process in the `ConvergenceChart` component.
 4.  **Output**: Returns a `SimulationResults` object, similar to the Price Simulator, but with the `carbon_price` being the calculated equilibrium price and `equilibrium_found` indicating success. It also includes the `iterations` count.
 
-### 3. Scenario Comparison (`src/components/ScenarioComparison.tsx` using `src/utils/reportGenerator.ts`)
+### 3. Strategic Behavior Matrix
+
+The **Strategic Behavior Matrix** is a visual and analytical tool to simulate how sectors behave when they make intentional strategic decisions to adjust **output** and/or **emissions intensity**, regardless of direct market feedback.
+
+This feature is represented as a **2×2 matrix**, with each quadrant corresponding to one of the following strategy combinations:
+
+- **Top Left**: ↓ Output, ↓ Intensity  
+- **Top Right**: ↑ Output, ↓ Intensity  
+- **Bottom Left**: ↓ Output, ↑ Intensity  
+- **Bottom Right**: ↑ Output, ↑ Intensity
+
+---
+
+#### Core Logic: `simulateStrategyMatrix(outputFactor: number, intensityFactor: number)`
+
+**Inputs:**
+
+- `outputFactor`: Global adjustment for sectoral output (range: `-0.2` to `+0.2`)
+- `intensityFactor`: Global adjustment for sectoral emissions intensity (range: `-0.2` to `+0.2`)
+- Sectoral and cost data
+- Carbon price (fixed or inherited from simulation state)
+
+**Adjustments Per Sector:**
+
+- `Adjusted Output = Q₀ × (1 + outputFactor)`
+- `Adjusted Intensity = e₀ × (1 + intensityFactor)`
+- `CCC Balance = (τ - e') × Q'`
+- `Emissions Reduced = (e₀ - e') × Q'`
+- `Profit = Revenue - Variable Cost - Fixed Cost - CCC Purchase Cost + CCC Sale Revenue`
+
+Where:
+
+- `Revenue = Adjusted Output × Price`
+- `Variable Cost = Adjusted Output × Variable Cost`
+- `CCC Cost/Revenue = CCC Balance × Carbon Price` (buy or sell depending on surplus/deficit)
+
+---
+
+#### Sliders & Interactivity
+
+- Two sliders control the strategy axes:
+  - **X-axis**: Output Strategy (−20% to +20%)
+  - **Y-axis**: Intensity Strategy (−20% to +20%)
+- Each quadrant updates in real-time when sliders change.
+
+---
+
+#### Visualization
+
+Each quadrant shows:
+
+- Adjusted Output (Mt)
+- Adjusted Emissions Intensity (tCO₂/t)
+- Emissions Reduced (MtCO₂)
+- Profit Change (Rs million)
+- CCC Position (Buyer / Seller / Neutral)
+
+### 4. Scenario Comparison
 
 This feature allows users to create, manage, and compare multiple carbon pricing scenarios side-by-side.
 
