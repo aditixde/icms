@@ -4,4 +4,5 @@ import { lazy } from 'react';
 export const PriceSimulator = lazy(() => import('./PriceSimulator').then(module => ({ default: module.PriceSimulator })));
 export const EquilibriumFinder = lazy(() => import('./EquilibriumFinder').then(module => ({ default: module.EquilibriumFinder })));
 export const ScenarioComparison = lazy(() => import('./ScenarioComparison').then(module => ({ default: module.ScenarioComparison })));
+export const StrategyMatrix = lazy(() => import('./StrategyMatrix').then(module => ({ default: module.StrategyMatrix })));
 export const ExportModal = lazy(() => import('./ExportModal').then(module => ({ default: module.ExportModal })));
