@@ -133,11 +133,3 @@ The application uses predefined sectoral and cost data, along with simulation co
 *   `MAX_ITERATIONS`: The maximum number of iterations for the bisection method.
 
 These values can be modified within the `EquilibriumFinder` component's "Edit Data" mode to explore different market conditions.
-
-## Contributing
-
-Contributions are welcome! If you have suggestions for improvements, new features, or bug fixes, please feel free to open an issue or submit a pull request.
-
-## License
-
-This project is open-source and available under the [MIT License](LICENSE).
