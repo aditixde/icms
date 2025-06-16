@@ -33,7 +33,7 @@ export const StrategyMatrix: React.FC = () => {
   const [bottomRightOutput, setBottomRightOutput] = useState(0.1); // ↑ Output, ↑ Intensity
   const [bottomRightIntensity, setBottomRightIntensity] = useState(0.1);
 
-  const [carbonPrice, setCarbonPrice] = useState(50);
+  const [carbonPrice] = useState(50); // Fixed carbon price
   const [selectedSector, setSelectedSector] = useState('Steel');
   const [results, setResults] = useState<SectorStrategyResults>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -134,7 +134,7 @@ export const StrategyMatrix: React.FC = () => {
   useEffect(() => {
     runStrategyAnalysis();
   }, [topLeftOutput, topLeftIntensity, topRightOutput, topRightIntensity, 
-      bottomLeftOutput, bottomLeftIntensity, bottomRightOutput, bottomRightIntensity, carbonPrice]);
+      bottomLeftOutput, bottomLeftIntensity, bottomRightOutput, bottomRightIntensity]);
 
   const getPositionColor = (position: string) => {
     switch (position) {
@@ -209,39 +209,14 @@ export const StrategyMatrix: React.FC = () => {
           </div>
         </div>
 
-        {/* Global Controls */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Carbon Price */}
-          <div className="space-y-3">
-            <label className="block text-sm font-medium text-gray-700">
-              Carbon Price: ₹{carbonPrice}/tCO₂
-            </label>
-            <div className="px-3">
-              <input
-                type="range"
-                min="10"
-                max="200"
-                value={carbonPrice}
-                onChange={(e) => setCarbonPrice(Number(e.target.value))}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                style={{
-                  background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${(carbonPrice/200)*100}%, #E5E7EB ${(carbonPrice/200)*100}%, #E5E7EB 100%)`
-                }}
-              />
-              <div className="flex justify-between text-xs text-gray-500 mt-1">
-                <span>₹10</span>
-                <span>₹200</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Sector Selection */}
+        {/* Sector Selection */}
+        <div className="mb-8">
           <div className="space-y-3">
             <label className="block text-sm font-medium text-gray-700">Select Sector for Analysis</label>
             <select
               value={selectedSector}
               onChange={(e) => setSelectedSector(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+              className="w-full max-w-md px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
             >
               {Object.keys(SECTORAL_DATA).map(sector => (
                 <option key={sector} value={sector}>{sector}</option>
@@ -252,7 +227,7 @@ export const StrategyMatrix: React.FC = () => {
 
         {/* Four Quadrant Sliders */}
         <div className="mb-8">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Strategic Control Panel</h3>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Control Panel</h3>
           <div className="grid grid-cols-2 gap-6">
             {/* Top Left: ↓ Output, ↓ Intensity */}
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -375,7 +350,7 @@ export const StrategyMatrix: React.FC = () => {
                 Strategic Analysis Results for {selectedSector}
               </h3>
               <p className="text-sm text-gray-600">
-                2×2 Matrix showing outcomes for different output and intensity strategies
+                2×2 Matrix showing outcomes for different output and intensity strategies (Carbon Price: ₹{carbonPrice}/tCO₂)
               </p>
             </div>
 
