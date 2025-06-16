@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart3, Settings, Download } from 'lucide-react';
+import { BarChart3, Settings, Download, Grid3X3 } from 'lucide-react';
 
 interface HeaderProps {
   currentView: string;
@@ -12,6 +12,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onViewChange, onExp
   const views = [
     { id: 'simulator', label: 'Price Simulator', icon: BarChart3 },
     { id: 'equilibrium', label: 'Equilibrium Finder', icon: Settings },
+    { id: 'strategy', label: 'Strategy Matrix', icon: Grid3X3 },
     { id: 'scenarios', label: 'Scenario Comparison', icon: Download }
   ];
 
