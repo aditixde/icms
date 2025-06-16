@@ -154,16 +154,3 @@ This feature allows users to create, manage, and compare multiple carbon pricing
     *   The `exportComparison` function leverages `ReportGenerator.compareScenarios()`.
     *   `ReportGenerator.compareScenarios` takes an array of `PolicyScenario` objects and generates a CSV string. This CSV includes key comparative metrics such as carbon price, total emissions reduced, and market balance for each selected scenario, formatted for easy analysis in spreadsheet software.
 5.  **Output**: Displays a list of created scenarios, a summary of selected scenarios, and provides an option to export a detailed CSV comparison.
-
-## Data and Constants
-
-The application uses predefined sectoral and cost data, along with simulation constants, stored in `src/data/constants.ts`. These constants include:
-
-*   `SECTORAL_DATA`: Baseline emissions, production, intensity, and target for various industrial sectors.
-*   `COST_DATA`: Fixed costs, variable costs, and product prices for each sector.
-*   `ELASTICITY_MAP`: Price elasticity of demand for each sector.
-*   `ABATEMENT_COST_K`: A calibrated parameter for the abatement cost curve.
-*   `EPSILON`: The convergence threshold for equilibrium calculations.
-*   `MAX_ITERATIONS`: The maximum number of iterations for the bisection method.
-
-These values can be modified within the `EquilibriumFinder` component's "Edit Data" mode to explore different market conditions.
