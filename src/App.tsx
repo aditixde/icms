@@ -4,7 +4,8 @@ import { LoadingSpinner } from './components/LoadingSpinner';
 import { 
   PriceSimulator, 
   EquilibriumFinder, 
-  ScenarioComparison, 
+  ScenarioComparison,
+  StrategyMatrix,
   ExportModal 
 } from './components/LazyComponents';
 import { ReportGenerator } from './utils/reportGenerator';
@@ -46,6 +47,12 @@ function App() {
         return (
           <Suspense fallback={<LoadingSpinner message="Loading Equilibrium Finder..." />}>
             <EquilibriumFinder onResultsChange={setCurrentResults} />
+          </Suspense>
+        );
+      case 'strategy':
+        return (
+          <Suspense fallback={<LoadingSpinner message="Loading Strategy Matrix..." />}>
+            <StrategyMatrix />
           </Suspense>
         );
       case 'scenarios':
