@@ -111,8 +111,6 @@ This feature is represented as a **2×2 matrix**, with each quadrant correspondi
 - **Bottom Left**: ↓ Output, ↑ Intensity  
 - **Bottom Right**: ↑ Output, ↑ Intensity
 
----
-
 #### Core Logic: `simulateStrategyMatrix(outputFactor: number, intensityFactor: number)`
 
 **Inputs:**
@@ -135,27 +133,6 @@ Where:
 - `Revenue = Adjusted Output × Price`
 - `Variable Cost = Adjusted Output × Variable Cost`
 - `CCC Cost/Revenue = CCC Balance × Carbon Price` (buy or sell depending on surplus/deficit)
-
----
-
-#### Sliders & Interactivity
-
-- Two sliders control the strategy axes:
-  - **X-axis**: Output Strategy (−20% to +20%)
-  - **Y-axis**: Intensity Strategy (−20% to +20%)
-- Each quadrant updates in real-time when sliders change.
-
----
-
-#### Visualization
-
-Each quadrant shows:
-
-- Adjusted Output (Mt)
-- Adjusted Emissions Intensity (tCO₂/t)
-- Emissions Reduced (MtCO₂)
-- Profit Change (Rs million)
-- CCC Position (Buyer / Seller / Neutral)
 
 ### 4. Scenario Comparison
 
