@@ -350,7 +350,7 @@ export const StrategyMatrix: React.FC = () => {
                 Strategic Analysis Results for {selectedSector}
               </h3>
               <p className="text-sm text-gray-600">
-                2×2 Matrix showing outcomes for different output and intensity strategies (Carbon Price: ₹{carbonPrice}/tCO₂)
+                2×2 Matrix showing outcomes for different output and intensity strategies
               </p>
             </div>
 
